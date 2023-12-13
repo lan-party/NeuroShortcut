@@ -5,7 +5,8 @@ A brain-computer interface tool for triggering keyboard shortcuts, system comman
 This project was made using the 8 channel OpenBCI Cyton board. Support for more devices and electrode configurations will be added in the future.
 ![Screenshot 1](assets/screenshot1.png)
 ## Frequency Band Thresholding
-Triggers are built up from training to modulate activity in different regions of thr brain and in different frequency bands. [Learn more here](https://mentalhealthdaily.com/2014/04/15/5-types-of-brain-waves-frequencies-gamma-beta-alpha-theta-delta/)
+Triggers are built on modulating activity in different regions of thr brain and in different frequency bands. [Learn more here](https://mentalhealthdaily.com/2014/04/15/5-types-of-brain-waves-frequencies-gamma-beta-alpha-theta-delta/)
+
 Control methods based on motor imagery and sensory evoked potentials will be added at some point.
 ![Screenshot 2](assets/screenshot2.png)
 ## Actions
