@@ -12,3 +12,5 @@ Control methods based on motor imagery and sensory evoked potentials will be add
 ## Actions
 The current version of NeuroShortcut can execute system commands from mental triggers. Future versions will be able to activate keyboard shortcuts and replay mouse movements as well.
 ![Screenshot 3](assets/screenshot3.png)
+
+Also check out [BCIWiki](https://bciwiki.org) to learn more about the possibilities with neurotech!
