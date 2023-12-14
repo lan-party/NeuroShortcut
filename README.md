@@ -2,7 +2,7 @@
 A brain-computer interface tool for triggering keyboard shortcuts, system commands, and macro scripts by changing mental states
 ![Screen Recording](assets/screenrecording.gif)
 ## Getting Started
-#### Windows 10+
+#### Windows 10
 [Executable Download](https://github.com/lan-party/NeuroShortcut/releases/download/v0.0.0/NeuroShortcut.zip)
 #### From Source
 ```
