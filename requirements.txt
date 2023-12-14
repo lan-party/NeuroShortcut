@@ -1,0 +1,6 @@
+PyQt5
+pyqtgraph
+setuptools
+brainflow
+numpy
+pandas
