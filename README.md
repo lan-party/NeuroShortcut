@@ -1,6 +1,16 @@
 # NeuroShortcut
 A brain-computer interface tool for triggering keyboard shortcuts, system commands, and macro scripts by changing mental states
 ![Screen Recording](assets/screenrecording.gif)
+## Getting Started
+#### Windows 10+
+[Executable Download](https://github.com/lan-party/NeuroShortcut/releases/download/v0.0.0/NeuroShortcut.zip)
+#### From Source
+```
+pip install -r requirements.txt
+```
+```
+python NeuroShortcut.py
+```
 ## Supported Devices
 This project was made using the 8 channel OpenBCI Cyton board. Support for more devices and electrode configurations will be added in the future.
 ![Screenshot 1](assets/screenshot1.png)
