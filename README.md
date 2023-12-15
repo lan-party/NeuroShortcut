@@ -12,7 +12,7 @@ pip install -r requirements.txt
 python NeuroShortcut.py
 ```
 ## Supported Devices
-This project was made using the 8 channel OpenBCI Cyton board. Support for more devices and electrode configurations will be added in the future.
+This project was made using the 8 channel OpenBCI Cyton board for EEG data capture. Support for more devices and electrode configurations will be added in the future.
 ![Screenshot 1](assets/screenshot1.png)
 ## Frequency Band Thresholding
 Triggers are built on modulating activity in different regions of the brain and in different frequency bands. [Learn more here](https://mentalhealthdaily.com/2014/04/15/5-types-of-brain-waves-frequencies-gamma-beta-alpha-theta-delta/)
