@@ -9,7 +9,7 @@ import pyqtgraph as pg
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds
 from brainflow.data_filter import DataFilter, WindowOperations, DetrendOperations
 
-shape_colors = ["ffb480"]*8
+shape_colors = ["ffb480"] * 8
 
 svg_str = """<?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
@@ -17,16 +17,24 @@ svg_str = """<?xml version="1.0" standalone="no"?>
 
 <g transform="matrix(0.44270834 0 0 0.44270834 0 0)">
     <path transform="matrix(1 0 0 1 124.7702 96.797455)"  d="M556.08 0L337.018 0L91.7438 192.849L0 509.272L22.4679 726.461L99.2331 842.545L230.296 971.736L446.784 1024.16L666.547 971.736L801.354 848.162L876.247 724.589L902.46 509.272L808.843 185.36L556.08 0z" stroke="#000000" stroke-width="8.2584" stroke-linecap="round" fill="#FFFFFF" fill-rule="nonzero" />
-    
-    <path transform="matrix(-1 -0 0 0.99999994 912.24457 120.67955)"  d="M327.934 0L327.934 320.53L0 179.563L232.331 0L327.934 0z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape0" fill="#"""+shape_colors[0]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    <path transform="matrix(-1 -0 0 0.99999994 1003.7819 306.3404)"  d="M419.471 143.887L419.471 295.06L0 297.806L84.8303 0L419.471 143.887z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape1" fill="#"""+shape_colors[1]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    <path transform="matrix(-1 -0 0 0.99999994 1003.7819 606.8925)"  d="M419.471 154.317L91.7926 314.449L19.849 203.053L0 6.40761L419.471 0L419.471 154.317z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape2" fill="#"""+shape_colors[2]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    <path transform="matrix(-1 -0 0 0.99999994 908.58307 769.829)"  d="M324.272 323.249L126.556 276.834L0 159.275L324.272 0L324.272 323.249z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape3" fill="#"""+shape_colors[3]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    <path transform="matrix(1 0 0 0.99999994 246.23544 120.67955)"  d="M327.934 0L327.934 320.53L0 179.563L232.331 0L327.934 0z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape4" fill="#"""+shape_colors[4]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    <path transform="matrix(1 0 0 0.99999994 154.6981 306.3404)"  d="M419.471 143.887L419.471 295.06L0 297.806L84.8303 0L419.471 143.887z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape5" fill="#"""+shape_colors[5]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    <path transform="matrix(1 0 0 0.99999994 154.6981 606.8925)"  d="M419.471 154.317L91.7926 314.449L19.849 203.053L0 6.40761L419.471 0L419.471 154.317z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape6" fill="#"""+shape_colors[6]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    <path transform="matrix(1 0 0 0.99999994 249.89694 769.829)"  d="M324.272 323.249L126.556 276.834L0 159.275L324.272 0L324.272 323.249z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape7" fill="#"""+shape_colors[7]+"""" fill-rule="nonzero" stroke-opacity="0" />
-    
+
+    <path transform="matrix(-1 -0 0 0.99999994 912.24457 120.67955)"  d="M327.934 0L327.934 320.53L0 179.563L232.331 0L327.934 0z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape0" fill="#""" + \
+          shape_colors[0] + """" fill-rule="nonzero" stroke-opacity="0" />
+    <path transform="matrix(-1 -0 0 0.99999994 1003.7819 306.3404)"  d="M419.471 143.887L419.471 295.06L0 297.806L84.8303 0L419.471 143.887z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape1" fill="#""" + \
+          shape_colors[1] + """" fill-rule="nonzero" stroke-opacity="0" />
+    <path transform="matrix(-1 -0 0 0.99999994 1003.7819 606.8925)"  d="M419.471 154.317L91.7926 314.449L19.849 203.053L0 6.40761L419.471 0L419.471 154.317z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape2" fill="#""" + \
+          shape_colors[2] + """" fill-rule="nonzero" stroke-opacity="0" />
+    <path transform="matrix(-1 -0 0 0.99999994 908.58307 769.829)"  d="M324.272 323.249L126.556 276.834L0 159.275L324.272 0L324.272 323.249z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape3" fill="#""" + \
+          shape_colors[3] + """" fill-rule="nonzero" stroke-opacity="0" />
+    <path transform="matrix(1 0 0 0.99999994 246.23544 120.67955)"  d="M327.934 0L327.934 320.53L0 179.563L232.331 0L327.934 0z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape4" fill="#""" + \
+          shape_colors[4] + """" fill-rule="nonzero" stroke-opacity="0" />
+    <path transform="matrix(1 0 0 0.99999994 154.6981 306.3404)"  d="M419.471 143.887L419.471 295.06L0 297.806L84.8303 0L419.471 143.887z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape5" fill="#""" + \
+          shape_colors[5] + """" fill-rule="nonzero" stroke-opacity="0" />
+    <path transform="matrix(1 0 0 0.99999994 154.6981 606.8925)"  d="M419.471 154.317L91.7926 314.449L19.849 203.053L0 6.40761L419.471 0L419.471 154.317z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape6" fill="#""" + \
+          shape_colors[6] + """" fill-rule="nonzero" stroke-opacity="0" />
+    <path transform="matrix(1 0 0 0.99999994 249.89694 769.829)"  d="M324.272 323.249L126.556 276.834L0 159.275L324.272 0L324.272 323.249z" stroke="#FFFFFF" stroke-width="8.2584" stroke-linecap="round" id="shape7" fill="#""" + \
+          shape_colors[7] + """" fill-rule="nonzero" stroke-opacity="0" />
+
     <path transform="matrix(1.0000001 0 0 0.99999994 248.76448 120.67955)"  d="M327.934 0L327.934 320.53L0 179.563L232.331 0L327.934 0z" id="outline0" stroke="#FFFFFF" fill="#888888" stroke-width="21.6" stroke-linecap="round" fill-opacity="0.4" />
     <path transform="matrix(1.0000001 0 0 0.99999994 155.30183 306.3404)"  d="M419.471 143.887L419.471 295.06L0 297.806L84.8303 0L419.471 143.887z" id="outline1" stroke="#FFFFFF" fill="#888888" stroke-width="21.6" stroke-linecap="round" fill-opacity="0.4" />
     <path transform="matrix(1.0000001 0 0 0.99999994 155.30183 606.8925)"  d="M419.471 154.317L91.7926 314.449L19.849 203.053L0 6.40761L419.471 0L419.471 154.317z" id="outline2" stroke="#FFFFFF" fill="#888888" stroke-width="21.6" stroke-linecap="round" fill-opacity="0.4" />
@@ -35,7 +43,7 @@ svg_str = """<?xml version="1.0" standalone="no"?>
     <path transform="matrix(-1 -0 0 0.99999994 1003.17816 306.3404)"  d="M419.471 143.887L419.471 295.06L0 297.806L84.8303 0L419.471 143.887z" id="outline5" stroke="#FFFFFF" fill="#888888" stroke-width="21.6" stroke-linecap="round" fill-opacity="0.4" />
     <path transform="matrix(-1 -0 0 0.99999994 1003.17816 606.8925)"  d="M419.471 154.317L91.7926 314.449L19.849 203.053L0 6.40761L419.471 0L419.471 154.317z" id="outline6" stroke="#FFFFFF" fill="#888888" stroke-width="21.6" stroke-linecap="round" fill-opacity="0.4" />
     <path transform="matrix(-1 -0 0 0.99999994 908.377 769.8289)"  d="M324.272 323.249L126.556 276.834L0 159.275L324.272 0L324.272 323.249z" id="outline7" stroke="#FFFFFF" fill="#888888" stroke-width="21.6" stroke-linecap="round" fill-opacity="0.4" />
-	
+
 	<text transform="matrix(1 0 0 1 408.25653 288.45828)" x="0" y="0" style="fill:#FFFFFF;font-family:ABeeZee;" font-size="50">
 
 	</text>
@@ -92,44 +100,56 @@ start_stream = False
 stream_running = False
 stop_stream = False
 current_device = 0
-freq_bands = {'delta': [0,4],'theta': [4,7],'alpha': [8,12],'beta': [12,30],'gamma': [30,100]}
+freq_bands = {'delta': [0, 4], 'theta': [4, 7], 'alpha': [8, 12], 'beta': [12, 30], 'gamma': [30, 100]}
 current_freq_band = 2
 current_electrodes = []
-electrode_locations = [1,3,5,7,0,2,4,6]
+electrode_locations = [1, 3, 5, 7, 0, 2, 4, 6]
 electrode_names = ['Fp2', 'Fp1', 'F4', 'F3', 'P4', 'P3', 'O2', 'O1']
 datapoints = 30
-X = list(range(0,datapoints))
-y = {0: [0]*datapoints, 1: [0]*datapoints, 2: [0]*datapoints, 3: [0]*datapoints, 4: [0]*datapoints, 5: [0]*datapoints, 6: [0]*datapoints, 7: [0]*datapoints}
+X = list(range(0, datapoints))
+y = {0: [0] * datapoints, 1: [0] * datapoints, 2: [0] * datapoints, 3: [0] * datapoints, 4: [0] * datapoints,
+     5: [0] * datapoints, 6: [0] * datapoints, 7: [0] * datapoints}
 color_count = {'delta': 100, 'theta': 30, 'alpha': 30, 'beta': 30, 'gamma': 100}
 freq_band_colors = [np.array(
-        [np.rint(np.linspace(255, 255, color_count['delta'])), np.rint(np.linspace(136, 161, color_count['delta'])), np.rint(np.linspace(136, 0, color_count['delta']))]).T,
-     np.array(
-        [np.rint(np.linspace(255, 177, color_count['theta'])), np.rint(np.linspace(246, 255, color_count['theta'])), np.rint(np.linspace(136, 0, color_count['theta']))]).T,
-     np.array(
-        [np.rint(np.linspace(137, 0, color_count['alpha'])), np.rint(np.linspace(255, 223, color_count['alpha'])), np.rint(np.linspace(173, 255, color_count['alpha']))]).T,
-     np.array(
-        [np.rint(np.linspace(135, 57, color_count['beta'])), np.rint(np.linspace(208, 0, color_count['beta'])), np.rint(np.linspace(255, 255, color_count['beta']))]).T,
-     np.array(
-        [np.rint(np.linspace(232, 255, color_count['gamma'])), np.rint(np.linspace(144, 0, color_count['gamma'])), np.rint(np.linspace(255, 138, color_count['gamma']))]).T]
+    [np.rint(np.linspace(255, 255, color_count['delta'])), np.rint(np.linspace(136, 161, color_count['delta'])),
+     np.rint(np.linspace(136, 0, color_count['delta']))]).T,
+                    np.array(
+                        [np.rint(np.linspace(255, 177, color_count['theta'])),
+                         np.rint(np.linspace(246, 255, color_count['theta'])),
+                         np.rint(np.linspace(136, 0, color_count['theta']))]).T,
+                    np.array(
+                        [np.rint(np.linspace(137, 0, color_count['alpha'])),
+                         np.rint(np.linspace(255, 223, color_count['alpha'])),
+                         np.rint(np.linspace(173, 255, color_count['alpha']))]).T,
+                    np.array(
+                        [np.rint(np.linspace(135, 57, color_count['beta'])),
+                         np.rint(np.linspace(208, 0, color_count['beta'])),
+                         np.rint(np.linspace(255, 255, color_count['beta']))]).T,
+                    np.array(
+                        [np.rint(np.linspace(232, 255, color_count['gamma'])),
+                         np.rint(np.linspace(144, 0, color_count['gamma'])),
+                         np.rint(np.linspace(255, 138, color_count['gamma']))]).T]
 marker_offset = 0
 threshold_value = 0
 smoothing = 1
 current_trigger = 0
 trigger_widgets = []
 trigger_layouts = []
-band_power_log = {'delta': [[0]*datapoints]*9,
-                     'theta': [[0]*datapoints]*9,
-                     'alpha': [[0]*datapoints]*9,
-                     'beta': [[0]*datapoints]*9,
-                     'gamma': [[0]*datapoints]*9}
+band_power_log = {'delta': [[0] * datapoints] * 9,
+                  'theta': [[0] * datapoints] * 9,
+                  'alpha': [[0] * datapoints] * 9,
+                  'beta': [[0] * datapoints] * 9,
+                  'gamma': [[0] * datapoints] * 9}
 log_updated = False
 all_triggers = pd.read_csv("triggers.csv")
 
+
 def clearLayout(layout):
-  while layout.count():
-    child = layout.takeAt(0)
-    if child.widget():
-      child.widget().deleteLater()
+    while layout.count():
+        child = layout.takeAt(0)
+        if child.widget():
+            child.widget().deleteLater()
+
 
 class signalListener(QtCore.QThread):
     band_power = QtCore.pyqtSignal(list)
@@ -197,14 +217,9 @@ class signalListener(QtCore.QThread):
                         freq_band = freq_bands[name]
                         power = round(DataFilter.get_band_power(psd, freq_band[0], freq_band[1]), 2)
 
-                        # smoothing
-                        if channels_copy != {}:
-                            for index_modifier in range(0, smoothing-1):
-                                power = round((power + channels_copy[eeg_channel][current_index-index_modifier]) / 2, 2)
-
                         if name == 'delta' or name == 'gamma':
-                            power = power/100
-                        power = (color_count[name]-1 if power >= color_count[name] else power)
+                            power = power / 100
+                        power = (color_count[name] - 1 if power >= color_count[name] else power)
                         channels[eeg_channel].append(power)
                         current_index += 1
 
@@ -219,7 +234,6 @@ class signalListener(QtCore.QThread):
                             band_power_log['beta'][key] = band_power_log['beta'][key][1:] + [channels[key][3]]
                             band_power_log['gamma'][key] = band_power_log['gamma'][key][1:] + [channels[key][4]]
                         log_updated = True
-
 
                     channel_bands.append(channels[eeg_channel][current_freq_band])
 
@@ -237,6 +251,7 @@ class signalListener(QtCore.QThread):
                 time.sleep(1)
             # except Exception as e:
             #     print("ERR:", e)
+
 
 class triggerListener(QtCore.QThread):
     def run(self):
@@ -258,33 +273,41 @@ class triggerListener(QtCore.QThread):
                 electrodes = all_triggers["electrodes"][index].split(", ")
                 for electrode in electrodes:
                     if len(signal) == 0:
-                        signal = band_power_log[frequency_band][electrode_names.index(electrode)+1]
+                        signal = band_power_log[frequency_band][electrode_names.index(electrode) + 1]
                     else:
-                        signal = np.mean(np.vstack([signal, band_power_log[frequency_band][electrode_names.index(electrode)+1]]), axis=0).tolist()
+                        signal = np.mean(
+                            np.vstack([signal, band_power_log[frequency_band][electrode_names.index(electrode) + 1]]),
+                            axis=0).tolist()
 
                 # apply smoothing
                 for a in range(all_triggers["smoothing"][index], len(signal)):
-                    signal[a-1] = np.mean(signal[a - all_triggers["smoothing"][index]:a])
+                    signal[a - 1] = np.mean(signal[a - all_triggers["smoothing"][index]:a])
 
                 # check for a threshold pass
-                val = signal[len(signal)-1:]
+                val = signal[len(signal) - 1:]
                 if len(val) > 0 and \
-                        ((all_triggers["threshold_direction"][index] == "below" and val[0] < all_triggers["threshold"][index]) or
-                         (all_triggers["threshold_direction"][index] == "above" and val[0] > all_triggers["threshold"][index])):
+                        ((all_triggers["threshold_direction"][index] == "below" and val[0] < all_triggers["threshold"][
+                            index]) or
+                         (all_triggers["threshold_direction"][index] == "above" and val[0] > all_triggers["threshold"][
+                             index])):
 
                     # check that activation delay and cool down are satisfied
                     activation_delay_passed = True
                     if int(float(all_triggers["activation_delay"][index])) > 0:
                         for sample in signal[-int(float(all_triggers["activation_delay"][index])):]:
-                            if ((all_triggers["threshold_direction"][index] and sample >= all_triggers["threshold"][index]) or
-                             (not all_triggers["threshold_direction"][index] and sample <= all_triggers["threshold"][index])):
+                            if ((all_triggers["threshold_direction"][index] and sample >= all_triggers["threshold"][
+                                index]) or
+                                    (not all_triggers["threshold_direction"][index] and sample <=
+                                     all_triggers["threshold"][index])):
                                 activation_delay_passed = False
 
                     cool_down_passed = False
                     if int(float(all_triggers["cool_down"][index])) > 0:
                         for sample in signal[-int(float(all_triggers["cool_down"][index])):]:
-                            if ((all_triggers["threshold_direction"][index] and sample < all_triggers["threshold"][index]) or
-                                    (not all_triggers["threshold_direction"][index] and sample > all_triggers["threshold"][index])):
+                            if ((all_triggers["threshold_direction"][index] and sample < all_triggers["threshold"][
+                                index]) or
+                                    (not all_triggers["threshold_direction"][index] and sample >
+                                     all_triggers["threshold"][index])):
                                 cool_down_passed = True
                     else:
                         cool_down_passed = True
@@ -297,7 +320,10 @@ class triggerListener(QtCore.QThread):
 
             log_updated = False
 
+
 uiclass, baseclass = pg.Qt.loadUiType("interface.ui")
+
+
 class MainWindow(uiclass, baseclass):
     def __init__(self):
         super().__init__()
@@ -320,7 +346,7 @@ class MainWindow(uiclass, baseclass):
         svg_bytes = bytearray(svg_str, encoding='utf-8')
         self.svgWidget = QtSvg.QSvgWidget(self)
         self.svgWidget.renderer().load(svg_bytes)
-        self.svgWidget.move(self.svgWidget.x()+10, self.svgWidget.y()+50)
+        self.svgWidget.move(self.svgWidget.x() + 10, self.svgWidget.y() + 50)
         self.svgWidget.setHidden(True)
 
         # Trigger list layout init
@@ -364,12 +390,12 @@ class MainWindow(uiclass, baseclass):
         global current_electrodes
         global electrode_names
 
-        svg_str_list = svg_str.split('id="outline'+str(outline_id)+'" stroke="')
+        svg_str_list = svg_str.split('id="outline' + str(outline_id) + '" stroke="')
         if svg_str_list[1].split('"')[0] == "none":
-            svg_str_list[0] = svg_str_list[0] + 'id="outline'+str(outline_id)+'" stroke="#FFFFFF" fill="#888888"'
+            svg_str_list[0] = svg_str_list[0] + 'id="outline' + str(outline_id) + '" stroke="#FFFFFF" fill="#888888"'
             current_electrodes.remove(electrode_names[electrode_locations[outline_id]])
         else:
-            svg_str_list[0] = svg_str_list[0] + 'id="outline'+str(outline_id)+'" stroke="none" fill="none"'
+            svg_str_list[0] = svg_str_list[0] + 'id="outline' + str(outline_id) + '" stroke="none" fill="none"'
             current_electrodes.append(electrode_names[electrode_locations[outline_id]])
         svg_str_list[1] = "\"".join(svg_str_list[1].split('"')[3:])
 
@@ -422,15 +448,20 @@ class MainWindow(uiclass, baseclass):
         self.thresholdSlider.setValue(0)
 
         if current_freq_band == 0:  # Delta
-            self.descriptionLabel.setText('<html><head/><body><p>Delta waves are usually associated with the deep stage 3 of NREM sleep, also known as slow-wave sleep (SWS), and aid in characterizing the depth of sleep. (<a href="https://en.wikipedia.org/wiki/Delta_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
+            self.descriptionLabel.setText(
+                '<html><head/><body><p>Delta waves are usually associated with the deep stage 3 of NREM sleep, also known as slow-wave sleep (SWS), and aid in characterizing the depth of sleep. (<a href="https://en.wikipedia.org/wiki/Delta_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
         elif current_freq_band == 1:  # Theta
-            self.descriptionLabel.setText('<html><head/><body><p>Humans exhibit predominantly cortical theta wave activity during REM sleep. Increased sleepiness is associated with decreased alpha wave power and increased theta wave power. Meditation has been shown to increase theta power. (<a href="https://en.wikipedia.org/wiki/Theta_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
+            self.descriptionLabel.setText(
+                '<html><head/><body><p>Humans exhibit predominantly cortical theta wave activity during REM sleep. Increased sleepiness is associated with decreased alpha wave power and increased theta wave power. Meditation has been shown to increase theta power. (<a href="https://en.wikipedia.org/wiki/Theta_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
         elif current_freq_band == 2:  # Alpha
-            self.descriptionLabel.setText('<html><head/><body><p>Alpha waves are reduced with open eyes and sleep, while they are enhanced during drowsiness. Occipital alpha waves during periods of eyes closed are the strongest EEG brain signals. (<a href="https://en.wikipedia.org/wiki/Alpha_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
+            self.descriptionLabel.setText(
+                '<html><head/><body><p>Alpha waves are reduced with open eyes and sleep, while they are enhanced during drowsiness. Occipital alpha waves during periods of eyes closed are the strongest EEG brain signals. (<a href="https://en.wikipedia.org/wiki/Alpha_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
         elif current_freq_band == 3:  # Beta
-            self.descriptionLabel.setText('<html><head/><body><p>Low-amplitude beta waves with multiple and varying frequencies are often associated with active, busy or anxious thinking and active concentration. Over the motor cortex, beta waves are associated with the muscle contractions that happen in isotonic movements and are suppressed prior to and during movement changes, with similar observations across fine and gross motor skills. (<a href="https://en.wikipedia.org/wiki/Beta_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
+            self.descriptionLabel.setText(
+                '<html><head/><body><p>Low-amplitude beta waves with multiple and varying frequencies are often associated with active, busy or anxious thinking and active concentration. Over the motor cortex, beta waves are associated with the muscle contractions that happen in isotonic movements and are suppressed prior to and during movement changes, with similar observations across fine and gross motor skills. (<a href="https://en.wikipedia.org/wiki/Beta_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
         elif current_freq_band == 4:  # Gamma
-            self.descriptionLabel.setText('<html><head/><body><p>High-amplitude gamma wave synchrony can be self-induced via meditation. Long-term practitioners of meditation such as Tibetan Buddhist monks exhibit both increased gamma-band activity at baseline as well as significant increases in gamma synchrony during meditation, as determined by scalp EEG. (<a href="https://en.wikipedia.org/wiki/Gamma_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
+            self.descriptionLabel.setText(
+                '<html><head/><body><p>High-amplitude gamma wave synchrony can be self-induced via meditation. Long-term practitioners of meditation such as Tibetan Buddhist monks exhibit both increased gamma-band activity at baseline as well as significant increases in gamma synchrony during meditation, as determined by scalp EEG. (<a href="https://en.wikipedia.org/wiki/Gamma_wave"><span style=" text-decoration: underline; color:#0000ff;">Learn More</span></a>)</p></body></html>')
 
     def deviceSelected(self, device_id):
         global current_device
@@ -469,7 +500,7 @@ class MainWindow(uiclass, baseclass):
             try:
                 self.powerTimeSeries.clear()
                 y_mean = []
-                for a in range(0,8):
+                for a in range(0, 8):
                     # Band power plotting
                     if electrode_names[electrode_locations[a]] in current_electrodes:
                         y[a] = y[a][1:] + [band_power[electrode_locations[a]]]
@@ -477,29 +508,39 @@ class MainWindow(uiclass, baseclass):
                             y_mean = y[a]
                         else:
                             y_mean = np.mean(np.vstack([y_mean, y[a]]), axis=0).tolist()
+
                         self.powerTimeSeries.plot(X, y[a], pen={'color': '#BBBBBB', 'width': 0.5})
 
                     # Vector tile colors
-                    color = "rgb(" + ",".join([str(int(i)) for i in freq_band_colors[current_freq_band][int(band_power[electrode_locations[a]])]]) + ")"
+                    color = "rgb(" + ",".join([str(int(i)) for i in freq_band_colors[current_freq_band][
+                        int(band_power[electrode_locations[a]])]]) + ")"
                     svg_str_split = svg_str.split('id="shape' + str(electrode_locations[a]) + '" fill="')
                     svg_start = svg_str_split[0] + 'id="shape' + str(electrode_locations[a]) + '" fill="' + color + '"'
                     svg_end = '"'.join(svg_str_split[1].split('"')[1:])
                     svg_str = svg_start + svg_end
 
+                # apply smoothing
+                if len(y_mean) > 0:
+                    y_mean[len(y_mean) - 1] = np.mean(y_mean[len(y_mean) - smoothing:len(y_mean)])
+
                 # Threshold triggered indicator
-                val = y_mean[len(y_mean)-1:]
+                val = y_mean[len(y_mean) - 1:]
                 if len(val) > 0:
                     val = val[0]
                     if self.invertTriggerArea.isChecked():
                         if val < threshold_value:
-                            self.indicator.setStyleSheet("border: 2px solid black; border-radius: 10px; background-color: red;")
+                            self.indicator.setStyleSheet(
+                                "border: 2px solid black; border-radius: 10px; background-color: red;")
                         else:
-                            self.indicator.setStyleSheet("border: 2px solid black; border-radius: 10px; background-color: #222222;")
+                            self.indicator.setStyleSheet(
+                                "border: 2px solid black; border-radius: 10px; background-color: #222222;")
                     else:
                         if val > threshold_value:
-                            self.indicator.setStyleSheet("border: 2px solid black; border-radius: 10px; background-color: red;")
+                            self.indicator.setStyleSheet(
+                                "border: 2px solid black; border-radius: 10px; background-color: red;")
                         else:
-                            self.indicator.setStyleSheet("border: 2px solid black; border-radius: 10px; background-color: #222222;")
+                            self.indicator.setStyleSheet(
+                                "border: 2px solid black; border-radius: 10px; background-color: #222222;")
 
                 # Plot layout
                 self.powerTimeSeries.plot(X, y_mean, pen={'color': '#000000', 'width': 1.5})
@@ -508,7 +549,7 @@ class MainWindow(uiclass, baseclass):
                 svg_bytes = bytearray(svg_str, encoding='utf-8')
                 self.svgWidget.renderer().load(svg_bytes)
             except Exception as e:
-                print("ERR: ",end="")
+                print("ERR: ", end="")
                 input(e)
 
         else:
@@ -523,7 +564,7 @@ class MainWindow(uiclass, baseclass):
         marker_position = self.powerTimeSeries.height() - self.thresholdSlider.value()
         threshold_value = ((((marker_position - 0) * (30 - 0)) / (self.thresholdSlider.maximum() - 0)) - 30) * -1
         self.thresholdMarker.move(self.thresholdMarker.x(), marker_position - marker_offset)
-        self.thresholdValueLabel.setText("Threshold: "+str(round(threshold_value, 2)))
+        self.thresholdValueLabel.setText("Threshold: " + str(round(threshold_value, 2)))
 
     def invertTriggerAreaClicked(self):
         global marker_offset
@@ -537,7 +578,7 @@ class MainWindow(uiclass, baseclass):
 
     def smoothingChanged(self, smoothing_level):
         global smoothing
-        smoothing = smoothing_level+1
+        smoothing = smoothing_level + 1
 
     def saveTriggerButtonClicked(self):
         global freq_bands
@@ -568,7 +609,9 @@ class MainWindow(uiclass, baseclass):
         system_command = ""
         active = True
 
-        pd.DataFrame([[last_edit, name, frequency_band, electrodes, smoothing, threshold, threshold_direction, activation_delay, cool_down, system_command, active]]).to_csv("triggers.csv",mode='a',header=False,index=False)
+        pd.DataFrame([[last_edit, name, frequency_band, electrodes, smoothing, threshold, threshold_direction,
+                       activation_delay, cool_down, system_command, active]]).to_csv("triggers.csv", mode='a',
+                                                                                     header=False, index=False)
         self.triggerName.setText("")
         all_triggers = pd.read_csv("triggers.csv")
         print("Saved")
@@ -590,19 +633,20 @@ class MainWindow(uiclass, baseclass):
             self.triggerListLayout.addWidget(trigger_widgets[trigger_id])
             trigger_widgets[trigger_id].setObjectName("trigger")
             trigger_widgets[trigger_id].setFixedHeight(101)
-            trigger_widgets[trigger_id].setStyleSheet("QWidget#trigger { border: 2px solid #BBBBBB; } QLabel { font-size: 10pt; }")
+            trigger_widgets[trigger_id].setStyleSheet(
+                "QWidget#trigger { border: 2px solid #BBBBBB; } QLabel { font-size: 10pt; }")
             trigger_widgets[trigger_id].mousePressEvent = self.triggerSelect
 
             trigger_layouts.append(QtWidgets.QGridLayout())
             trigger_widgets[trigger_id].setLayout(trigger_layouts[trigger_id])
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Last Edit</b><br>"+trigger[0]), 1, 1)
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Name</b><br>"+trigger[1]), 1, 2)
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Freq. Band</b><br>"+trigger[2]), 1, 3)
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Electrodes</b><br>"+trigger[3]), 1, 4)
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Smoothing</b><br>"+str(trigger[4])), 2, 1)
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Threshold</b><br>"+str(trigger[5])), 2, 2)
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Threshold Direction</b><br>"+trigger[6]), 2, 3)
-            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Active</b><br>"+str(trigger[10])), 2, 4)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Last Edit</b><br>" + trigger[0]), 1, 1)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Name</b><br>" + trigger[1]), 1, 2)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Freq. Band</b><br>" + trigger[2]), 1, 3)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Electrodes</b><br>" + trigger[3]), 1, 4)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Smoothing</b><br>" + str(trigger[4])), 2, 1)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Threshold</b><br>" + str(trigger[5])), 2, 2)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Threshold Direction</b><br>" + trigger[6]), 2, 3)
+            trigger_layouts[trigger_id].addWidget(QtWidgets.QLabel("<b>Active</b><br>" + str(trigger[10])), 2, 4)
 
             trigger_id += 1
 
@@ -620,14 +664,17 @@ class MainWindow(uiclass, baseclass):
 
         scroll_height = self.triggerListArea.verticalScrollBar().value()
         for tridder_id in range(1, 10000):
-            if event.windowPos().y() > (tridder_id-1)*106+50-scroll_height and event.windowPos().y() < tridder_id*106+50-scroll_height:
+            if event.windowPos().y() > (
+                    tridder_id - 1) * 106 + 50 - scroll_height and event.windowPos().y() < tridder_id * 106 + 50 - scroll_height:
                 # Set current trigger id
-                current_trigger = tridder_id-1
+                current_trigger = tridder_id - 1
                 break
         # Update trigger widget, number selection boxes, and line edit
         for trigger_widget in trigger_widgets:
-            trigger_widget.setStyleSheet("QWidget#trigger { border: 2px solid #BBBBBB; background-color: none; } QLabel { font-size: 10pt; }")
-        trigger_widgets[current_trigger].setStyleSheet("QWidget#trigger { border: 2px solid #BBBBBB; background-color: #CCCCCC; } QLabel { font-size: 10pt; }")
+            trigger_widget.setStyleSheet(
+                "QWidget#trigger { border: 2px solid #BBBBBB; background-color: none; } QLabel { font-size: 10pt; }")
+        trigger_widgets[current_trigger].setStyleSheet(
+            "QWidget#trigger { border: 2px solid #BBBBBB; background-color: #CCCCCC; } QLabel { font-size: 10pt; }")
 
         triggers = pd.read_csv("triggers.csv").to_numpy()
         self.activeCheckBox.setChecked(int(triggers[current_trigger][10]))
@@ -705,6 +752,7 @@ class MainWindow(uiclass, baseclass):
         self.deleteTriggerButton.setEnabled(False)
 
         print("Deleted")
+
 
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()

@@ -117,7 +117,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(cytonpins.png);</string>
+      <string notr="true">background-image: url(assets/cytonpins.png);</string>
      </property>
     </widget>
    </widget>
