@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1191</width>
-    <height>627</height>
+    <height>639</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,25 @@
      <x>0</x>
      <y>0</y>
      <width>1201</width>
-     <height>631</height>
+     <height>645</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTabBar::tab { height: 30px; width: 100px; }</string>
+   </property>
+   <property name="tabPosition">
+    <enum>QTabWidget::North</enum>
+   </property>
+   <property name="tabShape">
+    <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
     <number>0</number>
@@ -40,7 +57,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="currentText">
@@ -71,7 +89,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -90,6 +109,12 @@
        <height>41</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Start Stream</string>
      </property>
@@ -97,11 +122,14 @@
     <widget class="Line" name="line1_2">
      <property name="geometry">
       <rect>
-       <x>300</x>
+       <x>310</x>
        <y>10</y>
-       <width>20</width>
+       <width>1</width>
        <height>591</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: black;</string>
      </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -129,14 +157,15 @@
      <property name="geometry">
       <rect>
        <x>690</x>
-       <y>470</y>
+       <y>440</y>
        <width>101</width>
        <height>22</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="currentText">
@@ -175,14 +204,15 @@
      <property name="geometry">
       <rect>
        <x>585</x>
-       <y>380</y>
+       <y>370</y>
        <width>141</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -198,11 +228,14 @@
     <widget class="Line" name="line">
      <property name="geometry">
       <rect>
-       <x>525</x>
+       <x>535</x>
        <y>10</y>
-       <width>20</width>
+       <width>1</width>
        <height>591</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: black;</string>
      </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -219,7 +252,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="placeholderText">
@@ -229,15 +263,16 @@
     <widget class="QLabel" name="electrodesLabel">
      <property name="geometry">
       <rect>
-       <x>585</x>
-       <y>430</y>
+       <x>580</x>
+       <y>410</y>
        <width>581</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -248,7 +283,7 @@
      <property name="geometry">
       <rect>
        <x>1059</x>
-       <y>335</y>
+       <y>325</y>
        <width>121</width>
        <height>30</height>
       </rect>
@@ -261,14 +296,15 @@
      <property name="geometry">
       <rect>
        <x>935</x>
-       <y>340</y>
+       <y>330</y>
        <width>111</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -282,14 +318,15 @@
      <property name="geometry">
       <rect>
        <x>570</x>
-       <y>470</y>
+       <y>440</y>
        <width>111</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -308,19 +345,25 @@
        <height>521</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
     </widget>
     <widget class="QLabel" name="thresholdValueLabel">
      <property name="geometry">
       <rect>
        <x>591</x>
-       <y>340</y>
+       <y>330</y>
        <width>191</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -338,7 +381,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -349,14 +393,15 @@
      <property name="geometry">
       <rect>
        <x>761</x>
-       <y>380</y>
+       <y>370</y>
        <width>71</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -415,14 +460,15 @@
      <property name="geometry">
       <rect>
        <x>841</x>
-       <y>380</y>
+       <y>370</y>
        <width>31</width>
        <height>22</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="currentText">
@@ -460,15 +506,16 @@
     <widget class="QLabel" name="descriptionLabel">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>500</y>
-       <width>391</width>
-       <height>91</height>
+       <x>560</x>
+       <y>470</y>
+       <width>401</width>
+       <height>131</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>9</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -489,11 +536,14 @@
     <widget class="Line" name="line1">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>660</x>
        <y>10</y>
-       <width>20</width>
+       <width>1</width>
        <height>591</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: black;</string>
      </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -510,7 +560,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -523,15 +574,16 @@
     <widget class="QLabel" name="cooldownDelayLabel">
      <property name="geometry">
       <rect>
-       <x>980</x>
+       <x>970</x>
        <y>190</y>
-       <width>101</width>
+       <width>111</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -555,7 +607,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -576,7 +629,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="styleSheet">
@@ -610,7 +664,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -629,6 +684,12 @@
        <height>22</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="maximum">
       <double>30.000000000000000</double>
      </property>
@@ -645,6 +706,12 @@
        <height>22</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
     </widget>
     <widget class="QCheckBox" name="activeCheckBox">
      <property name="enabled">
@@ -657,6 +724,12 @@
        <width>70</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+       <pointsize>11</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Active</string>

@@ -1,13 +1,14 @@
 import sys
 import time
-import numpy as np
-import pandas as pd
-import os
 from datetime import datetime
-from PyQt5 import QtWidgets, QtSvg, QtCore, QtGui
+import os
+from PyQt5 import QtWidgets, QtSvg, QtCore, QtGui, Qt
 import pyqtgraph as pg
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds
 from brainflow.data_filter import DataFilter, WindowOperations, DetrendOperations
+
+import numpy as np
+import pandas as pd
 
 shape_colors = ["ffb480"] * 8
 
@@ -142,14 +143,73 @@ band_power_log = {'delta': [[0] * datapoints] * 9,
                   'gamma': [[0] * datapoints] * 9}
 log_updated = False
 all_triggers = pd.read_csv("triggers.csv")
+last_trigger_timestamp = {}
+last_nontrigger_timestamp = {}
 
+class triggerListener(QtCore.QThread):
+    def run(self):
+        global band_power_log
+        global log_updated
+        global all_triggers
+        global electrode_names
 
-def clearLayout(layout):
-    while layout.count():
-        child = layout.takeAt(0)
-        if child.widget():
-            child.widget().deleteLater()
+        trigger_timestamp = {}
 
+        while True:
+            while not log_updated:  # Wait until band_power_log has been updated
+                time.sleep(0.05)
+
+            # Check for trigger matches
+            for index in all_triggers.index:
+                frequency_band = all_triggers["frequency_band"][index]
+
+                # Average logs for each electrode listed into one signal
+                signal = []
+                electrodes = all_triggers["electrodes"][index].split(", ")
+                for electrode in electrodes:
+                    if len(signal) == 0:
+                        signal = band_power_log[frequency_band][electrode_names.index(electrode) + 1]
+                    else:
+                        signal = np.mean(
+                            np.vstack([signal, band_power_log[frequency_band][electrode_names.index(electrode) + 1]]),
+                            axis=0).tolist()
+
+                # apply smoothing
+                for a in range(all_triggers["smoothing"][index], len(signal)):
+                    signal[a - 1] = np.mean(signal[a - all_triggers["smoothing"][index]:a])
+
+                # check for a threshold pass
+                val = signal[len(signal) - 1:]
+                if len(val) > 0 and \
+                        ((all_triggers["threshold_direction"][index] == "below" and val[0] < all_triggers["threshold"][
+                            index]) or
+                         (all_triggers["threshold_direction"][index] == "above" and val[0] > all_triggers["threshold"][
+                             index])):
+
+                    trigger_timestamp[index] = time.time()
+
+                    # check that activation delay and cool down are satisfied
+                    activation_delay_passed = False
+                    if float(all_triggers["activation_delay"][index]) > 0:
+                        if trigger_timestamp[index] - last_nontrigger_timestamp[index] >= float(all_triggers["activation_delay"][index]):
+                            activation_delay_passed = True
+
+                    cool_down_passed = False
+                    if float(all_triggers["cool_down"][index]) > 0:
+                        if trigger_timestamp[index] - last_trigger_timestamp[index] >= float(all_triggers["cool_down"][index]):
+                            cool_down_passed = True
+
+                    if activation_delay_passed and cool_down_passed:
+                        # run associated system command
+                        if type(all_triggers["system_command"][index]) == str:
+                            print(all_triggers["system_command"][index])
+                            os.system(all_triggers["system_command"][index])
+
+                    last_trigger_timestamp[index] = trigger_timestamp
+                else:
+                    last_nontrigger_timestamp[index] = time.time()
+
+            log_updated = False
 
 class signalListener(QtCore.QThread):
     band_power = QtCore.pyqtSignal(list)
@@ -166,6 +226,7 @@ class signalListener(QtCore.QThread):
         global band_power_log
         global log_updated
         global all_triggers
+        global color_count
 
         BoardShim.enable_dev_board_logger()
         params = BrainFlowInputParams()
@@ -174,6 +235,7 @@ class signalListener(QtCore.QThread):
         while True:
             # try:
             if start_stream:
+                print("STARTING STREAM")
                 if current_device == 0:
                     board = BoardShim(BoardIds.SYNTHETIC_BOARD.value, params)
                 elif current_device == 1:
@@ -252,77 +314,13 @@ class signalListener(QtCore.QThread):
             # except Exception as e:
             #     print("ERR:", e)
 
-
-class triggerListener(QtCore.QThread):
-    def run(self):
-        global band_power_log
-        global log_updated
-        global all_triggers
-        global electrode_names
-
-        while True:
-            while not log_updated:  # Wait until band_power_log has been updated
-                time.sleep(0.05)
-
-            # Check for trigger matches
-            for index in all_triggers.index:
-                frequency_band = all_triggers["frequency_band"][index]
-
-                # Average logs for each electrode listed into one signal
-                signal = []
-                electrodes = all_triggers["electrodes"][index].split(", ")
-                for electrode in electrodes:
-                    if len(signal) == 0:
-                        signal = band_power_log[frequency_band][electrode_names.index(electrode) + 1]
-                    else:
-                        signal = np.mean(
-                            np.vstack([signal, band_power_log[frequency_band][electrode_names.index(electrode) + 1]]),
-                            axis=0).tolist()
-
-                # apply smoothing
-                for a in range(all_triggers["smoothing"][index], len(signal)):
-                    signal[a - 1] = np.mean(signal[a - all_triggers["smoothing"][index]:a])
-
-                # check for a threshold pass
-                val = signal[len(signal) - 1:]
-                if len(val) > 0 and \
-                        ((all_triggers["threshold_direction"][index] == "below" and val[0] < all_triggers["threshold"][
-                            index]) or
-                         (all_triggers["threshold_direction"][index] == "above" and val[0] > all_triggers["threshold"][
-                             index])):
-
-                    # check that activation delay and cool down are satisfied
-                    activation_delay_passed = True
-                    if int(float(all_triggers["activation_delay"][index])) > 0:
-                        for sample in signal[-int(float(all_triggers["activation_delay"][index])):]:
-                            if ((all_triggers["threshold_direction"][index] and sample >= all_triggers["threshold"][
-                                index]) or
-                                    (not all_triggers["threshold_direction"][index] and sample <=
-                                     all_triggers["threshold"][index])):
-                                activation_delay_passed = False
-
-                    cool_down_passed = False
-                    if int(float(all_triggers["cool_down"][index])) > 0:
-                        for sample in signal[-int(float(all_triggers["cool_down"][index])):]:
-                            if ((all_triggers["threshold_direction"][index] and sample < all_triggers["threshold"][
-                                index]) or
-                                    (not all_triggers["threshold_direction"][index] and sample >
-                                     all_triggers["threshold"][index])):
-                                cool_down_passed = True
-                    else:
-                        cool_down_passed = True
-
-                    if activation_delay_passed and cool_down_passed:
-                        # run associated system command
-                        if type(all_triggers["system_command"][index]) == str:
-                            print(all_triggers["system_command"][index])
-                            os.system(all_triggers["system_command"][index])
-
-            log_updated = False
-
+def clearLayout(layout):
+    while layout.count():
+        child = layout.takeAt(0)
+        if child.widget():
+            child.widget().deleteLater()
 
 uiclass, baseclass = pg.Qt.loadUiType("interface.ui")
-
 
 class MainWindow(uiclass, baseclass):
     def __init__(self):
@@ -664,8 +662,8 @@ class MainWindow(uiclass, baseclass):
 
         scroll_height = self.triggerListArea.verticalScrollBar().value()
         for tridder_id in range(1, 10000):
-            if event.windowPos().y() > (
-                    tridder_id - 1) * 106 + 50 - scroll_height and event.windowPos().y() < tridder_id * 106 + 50 - scroll_height:
+            if event.windowPos().y() > ((tridder_id - 1) * 106 + 50 - scroll_height) and \
+                    event.windowPos().y() < tridder_id * 106 + 50 - scroll_height:
                 # Set current trigger id
                 current_trigger = tridder_id - 1
                 break
@@ -754,7 +752,28 @@ class MainWindow(uiclass, baseclass):
         print("Deleted")
 
 
-app = QtWidgets.QApplication(sys.argv)
-window = MainWindow()
-window.show()
-app.exec()
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion')
+
+    palette = QtGui.QPalette()
+    palette.setColor(QtGui.QPalette.Window, QtGui.QColor(53, 53, 53))
+    palette.setColor(QtGui.QPalette.WindowText, QtGui.QColor(255, 255, 255))
+    palette.setColor(QtGui.QPalette.Base, QtGui.QColor(25, 25, 25))
+    palette.setColor(QtGui.QPalette.AlternateBase, QtGui.QColor(53, 53, 53))
+    palette.setColor(QtGui.QPalette.ToolTipBase, QtGui.QColor(0, 0, 0))
+    palette.setColor(QtGui.QPalette.ToolTipText, QtGui.QColor(255, 255, 255))
+    palette.setColor(QtGui.QPalette.Text, QtGui.QColor(255, 255, 255))
+    palette.setColor(QtGui.QPalette.Button, QtGui.QColor(53, 53, 53))
+    palette.setColor(QtGui.QPalette.ButtonText, QtGui.QColor(255, 255, 255))
+    palette.setColor(QtGui.QPalette.BrightText, QtGui.QColor(255, 0, 0))
+    palette.setColor(QtGui.QPalette.Link, QtGui.QColor(218, 53, 42))
+    palette.setColor(QtGui.QPalette.Highlight, QtGui.QColor(218, 53, 42))
+    # palette.setColor(QtGui.QPalette.Link, QtGui.QColor(42, 130, 218))
+    # palette.setColor(QtGui.QPalette.Highlight, QtGui.QColor(42, 130, 218))
+    palette.setColor(QtGui.QPalette.HighlightedText, QtGui.QColor(0, 0, 0))
+    app.setPalette(palette)
+
+    window = MainWindow()
+    window.show()
+    app.exec()
