@@ -2,11 +2,12 @@ import sys
 import time
 from datetime import datetime
 import os
+import glob
+import serial
 from PyQt5 import QtWidgets, QtSvg, QtCore, QtGui, Qt
 import pyqtgraph as pg
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds
 from brainflow.data_filter import DataFilter, WindowOperations, DetrendOperations
-
 import numpy as np
 import pandas as pd
 
@@ -145,6 +146,7 @@ log_updated = False
 all_triggers = pd.read_csv("triggers.csv")
 last_trigger_timestamp = {}
 last_nontrigger_timestamp = {}
+serial_port = ''
 
 class triggerListener(QtCore.QThread):
     def run(self):
@@ -227,6 +229,7 @@ class signalListener(QtCore.QThread):
         global log_updated
         global all_triggers
         global color_count
+        global serial_port
 
         BoardShim.enable_dev_board_logger()
         params = BrainFlowInputParams()
@@ -238,15 +241,16 @@ class signalListener(QtCore.QThread):
                 print("STARTING STREAM")
                 if current_device == 0:
                     board = BoardShim(BoardIds.SYNTHETIC_BOARD.value, params)
-                elif current_device == 1:
-                    params.serial_port = 'COM3'
+                elif current_device == 1 and serial_port != "":
+                    params.serial_port = serial_port
                     board = BoardShim(BoardIds.CYTON_BOARD.value, params)
 
-                board.prepare_session()
-                board.start_stream()
-                time.sleep(3)
+                if (current_device == 1 and serial_port != "") or current_device != 1:
+                    board.prepare_session()
+                    board.start_stream()
+                    time.sleep(3)
+                    stream_running = True
                 start_stream = False
-                stream_running = True
 
             if stop_stream:
                 board.stop_stream()
@@ -351,6 +355,13 @@ class MainWindow(uiclass, baseclass):
         self.triggerListLayout = QtWidgets.QVBoxLayout()
         self.triggerList.setLayout(self.triggerListLayout)
 
+        # COM port init
+        self.ports = self.serial_ports()
+        if len(self.ports) > 0:
+            self.portSelected(self.ports[0])
+        self.portSelect.clear()
+        self.portSelect.addItems(self.ports)
+
         # Event connections
         self.svgWidget.mousePressEvent = self.svgClicked
         self.tabs.currentChanged.connect(self.tabChange)
@@ -366,6 +377,8 @@ class MainWindow(uiclass, baseclass):
         self.systemCommand.textChanged.connect(self.systemCommandChanged)
         self.deleteTriggerButton.clicked.connect(self.deleteTriggerButtonClicked)
         self.activeCheckBox.stateChanged.connect(self.activeCheckBoxClicked)
+        self.portSelect.currentIndexChanged.connect(self.portSelected)
+        self.portRefreshButton.clicked.connect(self.portRefreshButtonClicked)
 
         # Background tasks
         self.signalHandler = signalListener()
@@ -374,6 +387,33 @@ class MainWindow(uiclass, baseclass):
 
         self.triggerHandler = triggerListener()
         self.triggerHandler.start()
+
+    def serial_ports(self):
+        """ Lists serial port names
+
+            :raises EnvironmentError:
+                On unsupported or unknown platforms
+            :returns:
+                A list of the serial ports available on the system
+        """
+        if sys.platform.startswith('win'):
+            ports = ['COM%s' % (i + 1) for i in range(256)]
+        elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
+            ports = glob.glob('/dev/tty[A-Za-z]*')
+        elif sys.platform.startswith('darwin'):
+            ports = glob.glob('/dev/tty.*')
+        else:
+            raise EnvironmentError('Unsupported platform')
+
+        result = []
+        for port in ports:
+            try:
+                s = serial.Serial(port)
+                s.close()
+                result.append(port)
+            except (OSError, serial.SerialException):
+                pass
+        return result
 
     def tabChange(self, index):
         if index == 1:
@@ -467,8 +507,27 @@ class MainWindow(uiclass, baseclass):
 
         if current_device == 1:  # cyton
             self.pinConfigImg.setHidden(False)
+            self.portSelect.setEnabled(True)
+            self.portRefreshButton.setEnabled(True)
         else:
             self.pinConfigImg.setHidden(True)
+            self.portSelect.setEnabled(False)
+            self.portRefreshButton.setEnabled(False)
+
+        self.ports = self.serial_ports()
+        if len(self.ports) > 0:
+            self.portSelected(self.ports[0])
+    def portSelected(self, port):
+        global serial_port
+
+        serial_port = port
+
+    def portRefreshButtonClicked(self):
+        self.ports = self.serial_ports()
+        if len(self.ports) > 0:
+            self.portSelected(self.ports[0])
+        self.portSelect.clear()
+        self.portSelect.addItems(self.ports)
 
     def startStream(self):
         global start_stream
