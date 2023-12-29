@@ -3,7 +3,7 @@ A brain-computer interface tool for triggering keyboard shortcuts, system comman
 ![Screen Recording](assets/screenrecording.gif)
 ## Getting Started
 #### Windows 10
-[Executable Download](https://github.com/lan-party/NeuroShortcut/releases/download/v0.1.0/NeuroShortcut.zip)
+[Executable Download](https://github.com/lan-party/NeuroShortcut/releases/download/v0.1.1/NeuroShortcut.zip)
 #### From Source
 ```
 pip install -r requirements.txt
